@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.homework.food.model.dao.FoodMapper">
+    <select id="getFoodList" resultType="com.example.homework.food.model.dto.FoodDTO" parameterType="java.util.Map">
+        SELECT fd.id
+             , fd.food_cd
+             , fd.group_name
+             , fd.food_name
+             , fd.research_year
+             , fd.maker_name
+             , fd.ref_name
+             , fd.serving_size
+             , fd.calorie
+             , fd.carbohydrate
+             , fd.protein
+             , fd.province
+             , fd.sugars
+             , fd.salt
+             , fd.cholesterol
+             , fd.saturated_fatty_acids
+             , fd.trans_fat
+          FROM food_data AS fd
+         WHERE 1=1
+        <if test="foodName != null">
+           AND fd.food_name LIKE CONCAT('%',#{foodName},'%')
+        </if>
+        <if test="year != null">
+           AND fd.research_year = #{year}
+        </if>
+        <if test="maker != null">
+           AND fd.maker_name LIKE CONCAT('%',#{maker},'%')
+        </if>
+        <if test="foodCode != null">
+           AND fd.food_cd = #{foodCode}
+        </if>
+    </select>
+</mapper>
